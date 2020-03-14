@@ -1,9 +1,9 @@
 from otp import key
 from PIL import Image
-from database import login_name,login_pas,login_lock,verify_lock,login_unlock,verify_lock
+from database import login_name,login_pas,login_lock,verify_lock,login_unlock,verify_lock,admin_check
 
 
-def login():
+def login():                                                        #Login Module
     c=0
     while True:
         usr=input('UserName: ')
@@ -17,7 +17,7 @@ def login():
                     return 1
                 else:
                     print('Invalid OTP')
-            elif usr==login_name(usr) and pas==login_pas(usr) and verify_lock(usr)=='D':
+            elif usr==login_name(usr) and pas==login_pas(usr) and verify_lock(usr)=='L':
                 print('Account is locked... Contact ADMIN')
                 return 0
             else:
@@ -31,7 +31,7 @@ def login():
             print('Invalid Username')
             return 999
 
-def new_login():
+def new_login():                                                #verify the login with otp sync when new id started
     usr=input('Enter Username: ')
     pas=input('Enter Password: ')
     pas_re=input('Re Enter the password: ')
@@ -39,19 +39,27 @@ def new_login():
     im.show()
     op=input('Sync the OTP for validation: ')
 
-def db_unlock():
-    ip=input('Enter the OTP + 4 digit pin: ')
-    if key()+'1604'==str(ip):
-        usr=input('Enter the username to be unlocked: ')
-        if usr==login_name(usr):
-            if verify_lock(usr):
-                login_unlock(usr)
-                print('Account Unlocked: ',usr)
-            elif verify_lock(usr)==0:
-                print('Account Already in Unlocked State')
-            else:
-                print('Invalid User Name')
-                return 0
-            return 1
+def db_unlock():                                                #checks for db status and enables the Admin to change its state
+    usr_login=input('Enter ur usrname: ')
+    usr_pas=input('Enter ur password: ')
+    if usr_login==login_name(usr_login)  and usr_pas==login_pas(usr_login)  and admin_check(usr_login):
+        ip=input('Enter the OTP + 4 digit pin: ')
+        if key()+'1604'==str(ip):
+            usr=input('Enter the username to be unlocked: ')
+            if usr==login_name(usr):
+                if verify_lock(usr):
+                    login_unlock(usr)
+                    print('Account Unlocked: ',usr)
+                elif verify_lock(usr)==0:
+                    print('Account Already in Unlocked State')
+                else:
+                    print('Invalid User Name')
+                    return 0
+                return 1
+        else:
+            print('Invalid PIN, Try Again')
     else:
-        print('Invalid PIN, Try Again')
+        print('Incorrect Credentials')
+
+
+login()
