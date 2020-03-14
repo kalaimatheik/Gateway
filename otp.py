@@ -5,4 +5,4 @@ def key():
     return totp.now()
 
 
-#print(key())
+print(key())

@@ -63,7 +63,23 @@ def login_unlock(ip_usr):
         conn.commit()
         conn.close()
 
+def verify_lock(ip_usr):
+    try:
+        conn=sqlite3.connect('data.sql')
+        cur=conn.cursor()
+        cmd='SELECT status from ACCOUNT_DETAILS WHERE name=?'
+        cur.execute(cmd,(ip_usr,))
+        x=cur.fetchone()[0]
+        if x=='L':
+            return True
+        else:
+            return 0
+    except:
+        return False
+    finally:
+        conn.commit()
+        conn.close()
 
-#
+
 #print(login_lock('root'))
 #print(verify_lock('root'))

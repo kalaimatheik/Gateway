@@ -1,6 +1,6 @@
 from otp import key
 from PIL import Image
-from database import login_name,login_pas,login_lock,verify_lock,login_unlock
+from database import login_name,login_pas,login_lock,verify_lock,login_unlock,verify_lock
 
 
 def login():
@@ -41,18 +41,17 @@ def new_login():
 
 def db_unlock():
     ip=input('Enter the OTP + 4 digit pin: ')
-    print(key()+'1604',str(ip)+'1604')
     if key()+'1604'==str(ip):
         usr=input('Enter the username to be unlocked: ')
-        print(login_unlock(usr))
         if usr==login_name(usr):
-            login_unlock(usr)
-            print('Account Unlocked: ',usr)
+            if verify_lock(usr):
+                login_unlock(usr)
+                print('Account Unlocked: ',usr)
+            elif verify_lock(usr)==0:
+                print('Account Already in Unlocked State')
+            else:
+                print('Invalid User Name')
+                return 0
             return 1
-        else:
-            print('Invalid User Name')
-            return 0
-        return 1
-
-db_unlock()
-    
+    else:
+        print('Invalid PIN, Try Again')
