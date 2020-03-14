@@ -1,0 +1,14 @@
+1.Create a username pass login setup.
+2.Validate the username existance and password strength validation.
+3.Save the data into the localized file via hash keys.
+4.Validate the OTP setup.
+5.Concurrent OTP generation and sync.
+6.Validate the hash key of the file each time for added security to prevent tampering.
+7.Encrypt the passwords.
+
+
+1.Build a file encryption System & delete the older file
+2.Inbuilt Storage of Keys in Encrypted format
+3.SMTP the keys to DG
+4.Back Door System Access for better debugging in future
+5.File Tampering & fool proof access for login application
