@@ -1,7 +1,7 @@
 import sqlite3
 
 
-def login_name(ip_usr):
+def login_name(ip_usr):                                        #Checks whether the user name is present in db
     try:
         conn = sqlite3.connect('data.sql')
         cur = conn.cursor()
@@ -13,7 +13,7 @@ def login_name(ip_usr):
     finally:
         conn.close()
 
-def login_pas(ip_usr):
+def login_pas(ip_usr):                                          #checks for the password in db with resp to the username in db
     try:
         conn = sqlite3.connect('data.sql')
         cur = conn.cursor()
@@ -25,7 +25,7 @@ def login_pas(ip_usr):
     finally:
         conn.close()
 
-def verify_lock(ip_usr):
+def verify_lock(ip_usr):                                        #checks if the account is in locked state
     try:
         conn = sqlite3.connect('data.sql')
         cur = conn.cursor()
@@ -35,12 +35,12 @@ def verify_lock(ip_usr):
     finally:
         conn.close()
 
-def login_lock(ip_usr):
+def login_lock(ip_usr):                                                 #Locks the account in db state as 'L'
     try:
         conn=sqlite3.connect('data.sql')
         cur=conn.cursor()
         cmd='Update ACCOUNT_DETAILS SET STATUS =? WHERE name=?'
-        cur.execute(cmd,("D",ip_usr,))
+        cur.execute(cmd,("L",ip_usr,))
         conn.commit()
         return True
     except:
@@ -49,7 +49,7 @@ def login_lock(ip_usr):
         conn.commit()
         conn.close()
 
-def login_unlock(ip_usr):
+def login_unlock(ip_usr):                                               #Unlocks the db to 'A'
     try:
         conn=sqlite3.connect('data.sql')
         cur=conn.cursor()
@@ -63,7 +63,7 @@ def login_unlock(ip_usr):
         conn.commit()
         conn.close()
 
-def verify_lock(ip_usr):
+def verify_lock(ip_usr):                                                #verifies the state of the user_account
     try:
         conn=sqlite3.connect('data.sql')
         cur=conn.cursor()
@@ -81,5 +81,17 @@ def verify_lock(ip_usr):
         conn.close()
 
 
-#print(login_lock('root'))
-#print(verify_lock('root'))
+def admin_check(ip_usr):                                        #checks if the account is a standard user or Admin
+    try:
+        conn = sqlite3.connect('data.sql')
+        cur = conn.cursor()
+        cmd='Select category from account_details where name=?'
+        cur.execute(cmd,(ip_usr,))
+        if cur.fetchone()[0]=='Admin':
+            return True
+        else:
+            return False
+    finally:
+        conn.close()
+
+
