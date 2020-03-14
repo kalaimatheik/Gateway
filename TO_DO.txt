@@ -1,0 +1,19 @@
+Account_DETAILS
+1. Create a PIN field with constrain 4digits
+2. Setup constrains for other fields in db 
+    password not null
+    category Admin, StandardUser
+3. Status - A or L
+4. Column "Lock_Event"   timestamp
+5. create a column "Token", timestamp  -'Last_Active'         --log in logg off session monitor
+
+
+
+
+Session_monitor
+
+1. "Token"   --foreign key              -auto insert data
+2. "Last_Active"                        -auto insert data
+
+
+
