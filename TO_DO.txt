@@ -12,22 +12,7 @@ Account_DETAILS                      ==== Update these column values to the exis
 
 Hash_file_storage                   ==== create a new table 
 
-<<<<<<< Kalai_Py
-
-Session_monitor
-
-1. "Token"   --foreign key              -auto insert data
-2. "Last_Active"                        -auto insert data
-
-
-
-
-
-aasasasas
-
-=======
 1. "ID" --FOREIGN KEY 
 2. "Hash_Value"  Not null
 3. "File_Name" text 
 4. "File_size" integer
->>>>>>> Updated DB work flow
