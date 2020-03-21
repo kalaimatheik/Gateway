@@ -1,6 +1,8 @@
 from otp import key
 from PIL import Image
-from database import login_name,login_pas,login_lock,verify_lock,login_unlock,verify_lock,admin_check
+from database import login_name,login_pas,login_lock,verify_lock,login_unlock,verify_lock,admin_check,new_user
+from uuid import uuid4
+import time
 
 
 def login():                                                        #Login Module
@@ -34,10 +36,25 @@ def login():                                                        #Login Modul
 def new_login():                                                #verify the login with otp sync when new id started
     usr=input('Enter Username: ')
     pas=input('Enter Password: ')
-    pas_re=input('Re Enter the password: ')
     im=Image.open('otp.png')
     im.show()
-    op=input('Sync the OTP for validation: ')
+    x=1
+    while True:
+        op=input('Sync the OTP for validation: ')
+        if op==key():
+            print('OTP Verified...please wait profile is being created....')
+            time.sleep(3)
+            pin=(input('Please give a 4 digit PIN: '))
+            tkn=str(uuid4())
+            new_user(usr,pas,pin,tkn)
+            break
+        else:
+            print('Invalid OTP')
+    
+
+
+new_login()
+
 
 def db_unlock():                                                #checks for db status and enables the Admin to change its state
     usr_login=input('Enter ur usrname: ')
@@ -61,5 +78,3 @@ def db_unlock():                                                #checks for db s
     else:
         print('Incorrect Credentials')
 
-
-login()
