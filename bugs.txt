@@ -1,2 +1,3 @@
 1.Need to validate the account lock status seperately
 2.OTP secret key encryption
+3.Admin should not become inactive.

@@ -16,3 +16,9 @@ Hash_file_storage                   ==== create a new table
 2. "Hash_Value"  Not null
 3. "File_Name" text 
 4. "File_size" integer
+
+
+Session_id
+
+1. "ID"  --foregin key
+2. "session-token"  -- txt
