@@ -95,3 +95,17 @@ def admin_check(ip_usr):                                        #checks if the a
         conn.close()
 
 
+def new_user(ip_usr,ip_pass,ip_pin,ip_token):
+    try:
+        conn = sqlite3.connect('data.sql')
+        cur = conn.cursor()
+        cmd='insert into account_details(Username,Password,PIN,Token ) values (?,?,?,?)'
+        cur.execute(cmd,(ip_usr,ip_pass,ip_pin,ip_token))
+        conn.commit()
+        return True
+    finally:
+        conn.commit()
+        conn.close()
+
+
+#print(new_user('kaasdlai','12as1','1235','afafaf'))
