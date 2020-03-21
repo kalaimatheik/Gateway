@@ -18,8 +18,3 @@ Hash_file_storage                   ==== create a new table
 4. "File_size" integer
 
 
-Main table
-
-Merge both the tables     == Query
-
-
