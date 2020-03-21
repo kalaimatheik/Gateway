@@ -6,13 +6,20 @@ Account_DETAILS                      ==== Update these column values to the exis
 3. Status - A or L
 4. Column "Lock_Event"   timestamp
 5. create a column "Token", timestamp  -'Last_Active'         --log in logg off session monitor
-6. "ID" Auto incremental PRIMARY KEY  
+6. "ID" Auto incremental PRIMARY KEY 
 7. "TOKEN" integer not null
 
 
 Hash_file_storage                   ==== create a new table 
 
 1. "ID" --FOREIGN KEY 
-2. "Hash_Value"  Not null
-3. "File_Name" text 
+2. "File_Name" text 
+3. "Hash_Value"  Not null
 4. "File_size" integer
+
+
+Main table
+
+Merge both the tables     == Query
+
+
