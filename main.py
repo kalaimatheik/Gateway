@@ -2,6 +2,7 @@ from otp import key
 from PIL import Image
 from database import login_name,login_pas,login_lock,verify_lock,login_unlock,verify_lock,admin_check,new_user
 from uuid import uuid4
+from encryption import encrypt,decrypt,hash_file,hash_db
 import time
 
 
@@ -33,6 +34,8 @@ def login():                                                        #Login Modul
             print('Invalid Username')
             return 999
 
+
+
 def new_login():                                                #verify the login with otp sync when new id started
     usr=input('Enter Username: ')
     pas=input('Enter Password: ')
@@ -51,9 +54,6 @@ def new_login():                                                #verify the logi
         else:
             print('Invalid OTP')
     
-
-
-new_login()
 
 
 def db_unlock():                                                #checks for db status and enables the Admin to change its state
@@ -77,4 +77,26 @@ def db_unlock():                                                #checks for db s
             print('Invalid PIN, Try Again')
     else:
         print('Incorrect Credentials')
+
+
+
+def security():
+    db='data.sql'
+    hash='3b6f51a6e1fddf586ae3d24d62039c2c2609e1c084a1cd7de39470083e1002c36768f2f9f9a0a696c729caa4053b1f9b40a8335023ec3f24435c07ac614250cb'
+
+    if hash_db(db)==hash:
+        return True
+    else:
+        return False
+
+def file_access(file):
+    ip=int(input('1.Encryption\n2.Decryption\n3.Keys\n4.Hash_files\nChoose Options to manage files: '))
+    if ip==1:
+        path=input('Input File Path: ')
+        stats=encrypt(file)
+        if stats==False:
+            print('Invalid Path')
+        else:
+            print(file,stats)
+    
 

@@ -1,0 +1,70 @@
+select * from account_details ;
+select * from Hash_file_storage;
+select * from Master_Table;
+
+DROP table account_details ;
+DROP table Hash_file_storage ;
+DROP table Master_Table ;
+
+
+create table account_details(
+ID integer PRIMARY KEY AUTOINCREMENT,
+Username Text not null,
+Password text not null unique,
+Category text  DEFAULT 'Standarduser'check(Category='Admin' or Category='Standarduser'),
+Status text default 'A' check(Status='A' or status='L'),
+PIN integer not null  check(length(PIN)= 4),
+Lock_event date DEFAULT 0,
+Token text );  
+
+create table Hash_file_storage (
+ID integer  ,
+Hash_Value real  Not null unique,
+File_Name text ,
+File_size text,
+CONSTRAINT fk_details
+    FOREIGN KEY (ID)
+    REFERENCES account_details (ID));
+   
+   
+insert into account_details(Username,Password,Category,PIN ) values ('root','123','Admin',3211);
+insert into account_details(Username,Password,Status,PIN ) values ('rexdiva','3699','L',9633);
+insert into account_details(Username,Password,Category,Status,PIN,Lock_event) values ('diva','789','Standarduser','L',9871,datetime());
+insert into account_details(Username,Password,Category,PIN ) values ('Rex','456','Admin',6544);
+insert into account_details(Username,Password,Category,Status,PIN ,Lock_event) values ('divakar','1475','Standarduser','L',5741,datetime());
+
+insert into Hash_file_storage(ID,Hash_Value,File_Name,File_size) values 
+(1,'6e5bd7e545117734362218b5b222276397ff4ef26d9c2a4360f4aab81b73fa71','abc',26);
+insert into Hash_file_storage(ID,Hash_Value,File_Name,File_size) values 
+(2,'a29a40a325dd29dc49ac463c50f763b580cbcb1e31b05e58408f724673a0cf07','add',25);
+insert into Hash_file_storage(ID,Hash_Value,File_Name,File_size) values 
+(1,'75687dc6cc25a84ecb3c719cc2966d15814cfc2f2d2d8672abdb3bc9487b0df3','xyz',29);
+insert into Hash_file_storage(ID,Hash_Value,File_Name,File_size) values 
+(1,'05aa926ecbc59d0b2f00df3f4cc28e2fc953413f9d0c0850b0972917c742cf79','abfc',55);
+
+
+Create table Master_Table(
+ID integer,
+Username Text ,
+Password text ,
+Category text  ,
+Status text ,
+PIN integer   ,
+Lock_event date ,
+Token textID integer  ,
+Hash_Value real ,
+File_Name text ,
+File_size text ); 
+
+INSERT INTO Master_Table SELECT a.ID,Username,Password,Category,Status,PIN,Lock_event,Token,Hash_Value,File_Name,File_size 
+FROM account_details a left join Hash_file_storage b on a.ID=b.ID ;
+   
+
+Create table Session_id(
+ID int,
+session_token int,
+CONSTRAINT fk_IDdetails
+    FOREIGN KEY (ID)
+    REFERENCES account_details (ID)));
+
+
