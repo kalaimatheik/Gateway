@@ -1,1 +1,1 @@
-Gateway File Encryption System
+Gateway
